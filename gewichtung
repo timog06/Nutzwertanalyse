@@ -1,0 +1,43 @@
+ try
+            {
+            Start2:
+                for (int x = 0; x <= gewichtung.Length; x++)
+                {
+                    try
+                    {
+                        Console.WriteLine("Geben Sie die Gewichtung für ein Kriterium ein: ");
+                        gewichtung[x] = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Ungültige Eingabe");
+                    }
+                    Console.WriteLine("Wollen Sie noch eine Gewichtung eingeben? [ja/nein] ");
+                    string repeat2 = Console.ReadLine();
+                    if (repeat2 == "ja")
+                    {
+                        continue;
+                    }
+                    else
+                    if (repeat2 == "nein")
+                    {
+                        goto Stop1;
+                    }
+                    else
+                    if (repeat2 != "ja" || repeat2 != "nein")
+                    {
+                        Console.WriteLine("Ungültige Eingabe");
+                        Thread.Sleep(500);
+                        Console.Clear();
+                        goto Start2;
+                    }
+                }
+            Stop1:
+                Console.WriteLine("Dies sind Ihre Kriterien: ");
+                Array.ForEach(gewichtung, Console.WriteLine);
+
+            }
+            catch
+            {
+                Console.WriteLine("Ungültige Eingabe");
+            }
