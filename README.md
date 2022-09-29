@@ -1,6 +1,6 @@
 # Nutzwertanalyse
 Gruppenmitglieder:
-Pascal Oestrich
-Keanu
-Lorenzo Lai
+Pascal Oestrich,
+Keanu,
+Lorenzo Lai,
 Ich
