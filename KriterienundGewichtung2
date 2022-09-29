@@ -1,0 +1,70 @@
+static void Main(string[] args)
+        {
+            int check = -1;
+            string repeat2 = "";
+            int prüf = 0;
+            string[] kriterien = new string[9];
+
+            int[] gewichtung = new int[9];
+
+            Console.WriteLine("Willkommen zur Nutzwertanalyse.");
+            try
+            {
+            Start1:
+                for (int i = 0; i <= kriterien.Length; i++)
+                {
+                    Console.WriteLine("Geben Sie ein Kriterium ein: ");
+                    kriterien[i] = Console.ReadLine();
+                    if (int.TryParse(kriterien[i], out check))
+                    {
+                        Console.WriteLine("Ungültige Eingabe");
+                        goto Start1;
+                    }
+
+                    Console.WriteLine("Wollen Sie noch ein Kriterium eingeben? [ja/nein] ");
+                    string repeat = Console.ReadLine();
+                    if (repeat == "ja")
+                    {
+                        continue;
+                    }
+                    else
+                    if (repeat == "nein")
+                    {
+                        goto Stop1;
+                    }
+                    else
+                    if (repeat != "ja" || repeat != "nein")
+                    {
+                        Console.WriteLine("Ungültige Eingabe");
+                        Thread.Sleep(500);
+                        Console.Clear();
+                        goto Start1;
+                    }
+                }
+            Stop1:
+                Console.WriteLine("Dies sind Ihre Kriterien: ");
+                Array.ForEach(kriterien, Console.WriteLine);
+
+            }
+            catch
+            {
+                Console.WriteLine("Ungültige Eingabe");
+            }
+            /*
+            try
+            {
+                Console.WriteLine("Geben Sie die Gewichtung für das jeweilige Kriterium ein: ");
+                for (int i = 0; i <= gewichtung.Length; i++)
+                {
+
+                }
+
+            }
+            catch
+            {
+                Console.WriteLine("Ungültige Eingabe");
+
+            }
+
+            Console.WriteLine();
+        */
