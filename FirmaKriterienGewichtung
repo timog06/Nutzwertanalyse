@@ -1,0 +1,102 @@
+static void Main(string[] args)
+        {
+            string[] Firma = new string[10];
+            string Weiter = "";
+            bool prüf = false;
+            int k = 0;
+            int y = 0;
+            int i = 0;
+            int x = 0;
+
+            Console.WriteLine("Willkommen zur Nutzwertanalyse.");
+            /*
+            Start:
+            do
+            {
+                try
+                {
+                    Console.Write("Geben Sie hier die Firma ein: ");
+
+                    for (; y <= Firma.Length;)
+                    {
+                        Firma[y] = Console.ReadLine();
+                        k++;
+                        y++;
+                        break;
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Ungültige Eingabe");
+                }
+
+                try
+                {
+                    Console.WriteLine("Noch eine Firma? [ja|nein]");
+                    Weiter = Convert.ToString(Console.ReadLine());
+
+                    if (Weiter == "ja")
+                    {
+                        continue;
+                    }
+                    else if (Weiter == "nein")
+                    {
+                        goto Break;
+                    }
+                    else if (Weiter != "ja" || Weiter != "nein")
+                    {
+                        Console.WriteLine("Ungültige Eingabe");
+                        Thread.Sleep(500);
+                        Console.Clear();
+                        goto Start;
+                    }
+                }
+                catch
+                {
+                    Console.WriteLine("Ungültige Eingabe");
+                }
+                
+
+            } while (Weiter == "ja");
+
+            Break:
+            Thread.Sleep(500);
+            Console.Clear();
+            */
+
+
+            Console.WriteLine("Wie viele Kriterien wollen Sie haben? ");
+            int anzKriterien = Convert.ToInt32(Console.ReadLine());
+            string[] kriterien = new string[anzKriterien];
+            for (; i < anzKriterien; i++)
+            {
+                Console.WriteLine("Geben Sie ein Kriterium ein: ");
+                kriterien[i] = Console.ReadLine();
+            }
+
+            Thread.Sleep(500);
+            Console.Clear();
+
+            int anzGewichtung = anzKriterien;
+            int[] gewichtung = new int[anzGewichtung];
+            Console.WriteLine("Geben Sie die Gewichtung für das jeweilige Kriterium ein: ");
+            
+
+            Thread.Sleep(500);
+            Console.Clear();
+
+            Console.WriteLine("Ihre eingegebene Firmen: ");
+            Array.ForEach(Firma, Console.WriteLine);
+
+            Console.WriteLine("Dies sind Ihre Kriterien: ");
+            Array.ForEach(kriterien, Console.WriteLine);
+
+
+            Console.WriteLine("Dies sind die Gewichtungen zu den Kriterien: ");
+            Array.ForEach(gewichtung, Console.WriteLine);
+
+            int[] benotung = new int[0];
+
+
+            Console.Write(benotung[i] * gewichtung[anzKriterien] + " ");
+        }
