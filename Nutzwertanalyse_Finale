@@ -6,15 +6,16 @@ namespace Nutzwertanalyse
         {
             int check = -1;
             int anzFirmen = 0;
+            int anzKriterien = 0;
             int i = 0;
             int x = 0;
             int y = 0;
 
             Console.WriteLine("Willkommen zur Nutzwertanalyse.");
         Start1:
-            Console.WriteLine("Wie viele Firmen wollen Sie haben? ");
-            string anzFirmenstr = Console.ReadLine();
-            if (!int.TryParse(anzFirmenstr, out check))
+            Console.WriteLine("Wie viele Alternativen wollen Sie haben? ");
+            string anzFirmenStr = Console.ReadLine();
+            if (!int.TryParse(anzFirmenStr, out check))
             {
                 Console.WriteLine("Bitte geben sie eine Zahl ein.");
                 Thread.Sleep(500);
@@ -23,15 +24,14 @@ namespace Nutzwertanalyse
             }
             else
             {
-                anzFirmen = Convert.ToInt32(anzFirmenstr);
+                anzFirmen = Convert.ToInt32(anzFirmenStr);
             }
-
 
         Start2:
             string[] firmen = new string[anzFirmen];
             for (; y < anzFirmen; y++)
             {
-                Console.WriteLine("Geben Sie ein Firmenname ein: ");
+                Console.WriteLine("Geben Sie eine Alternative ein: ");
                 firmen[y] = Console.ReadLine();
                 if (int.TryParse(firmen[y], out check))
                 {
@@ -48,7 +48,19 @@ namespace Nutzwertanalyse
 
         Start3:
             Console.WriteLine("Wie viele Kriterien wollen Sie haben? ");
-            int anzKriterien = Convert.ToInt32(Console.ReadLine());
+            string anzKriterienStr = Console.ReadLine();
+            if (!int.TryParse(anzKriterienStr, out check))
+            {
+                Console.WriteLine("Bitte geben sie eine Zahl ein.");
+                Thread.Sleep(500);
+                Console.Clear();
+                goto Start3;
+            }
+            else
+            {
+                anzKriterien = Convert.ToInt32(anzKriterienStr);
+            }
+        Restart1:
             string[] kriterien = new string[anzKriterien];
             for (; i < anzKriterien; i++)
             {
@@ -59,7 +71,7 @@ namespace Nutzwertanalyse
                     Console.WriteLine("Ungültige Eingabe.");
                     Thread.Sleep(500);
                     Console.Clear();
-                    goto Start3;
+                    goto Restart1; ;
                 }
             }
 
@@ -68,11 +80,13 @@ namespace Nutzwertanalyse
 
         Start4:
             int[] gewichtung = new int[anzKriterien];
+
+            Console.WriteLine("Geben Sie Ihren Kriterien eine Gewichtung von Insgesamt 100.");
             for (; x < anzKriterien; x++)
             {
-                Console.WriteLine("Geben Sie dem Kriterium {0} eine Gewichtung von 1 bis 6: ", kriterien[x]);
+                Console.WriteLine("Geben Sie dem Kriterium {0} eine Gewichtung: ", kriterien[x]);
                 gewichtung[x] = Convert.ToInt32(Console.ReadLine());
-                if (gewichtung[x] < 1 || gewichtung[x] > 6)
+                if (gewichtung[x] < 1 || gewichtung[x] > 100)
                 {
                     Console.WriteLine("Ungültige Eingabe");
                     Thread.Sleep(500);
@@ -96,8 +110,8 @@ namespace Nutzwertanalyse
 
             Console.WriteLine("Drücken Sie eine Taste, um weiterzufahren.");
             Console.ReadKey();
-
             Console.Clear();
+
         Start5:
 
             int anzBenotungen = anzFirmen * anzKriterien;
@@ -116,7 +130,6 @@ namespace Nutzwertanalyse
                     }
                 }
             }
-
 
             for (int zähler = 0; zähler < gewichtung.Length; zähler++)
             {
