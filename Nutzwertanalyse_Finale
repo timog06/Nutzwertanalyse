@@ -1,0 +1,81 @@
+namespace Nutzwertanalyse
+{
+    internal class Program
+    {
+        static void Main(string[] args)
+        {
+            int i = 0;
+            int x = 0;
+            int y = 0;
+
+            Console.WriteLine("Willkommen zur Nutzwertanalyse.");
+
+            Console.WriteLine("Wie viele Firmen wollen Sie haben? ");
+            int anzFirmen = Convert.ToInt32(Console.ReadLine());
+            string[] firmen = new string[anzFirmen];
+            for (; y < anzFirmen; y++)
+            {
+                Console.WriteLine("Geben Sie ein Firmenname ein: ");
+                firmen[y] = Console.ReadLine();
+            }
+            
+            Thread.Sleep(500);
+            Console.Clear();
+
+            Console.WriteLine("Wie viele Kriterien wollen Sie haben? ");
+            int anzKriterien = Convert.ToInt32(Console.ReadLine());
+            string[] kriterien = new string[anzKriterien];
+            for (; i < anzKriterien; i++)
+            {
+                Console.WriteLine("Geben Sie ein Kriterium ein: ");
+                kriterien[i] = Console.ReadLine();
+            }
+
+            Thread.Sleep(500);
+            Console.Clear();
+
+            int[] gewichtung = new int[anzKriterien];
+            for (; x < anzKriterien; x++)
+            {
+                Console.WriteLine("Geben Sie die Gewichtung für {0} ein: ", kriterien[x]);
+                gewichtung[x] = Convert.ToInt32(Console.ReadLine());
+            }
+
+            Thread.Sleep(500);
+            Console.Clear();
+
+            Console.WriteLine("Dies sind Ihre eingegebenen Firmen: ");
+            Array.ForEach(firmen, Console.WriteLine);
+
+            Console.WriteLine("Dies sind Ihre Kriterien: ");
+            Array.ForEach(kriterien, Console.WriteLine);
+
+
+            Console.WriteLine("Dies sind die Gewichtungen zu den Kriterien: ");
+            Array.ForEach(gewichtung, Console.WriteLine);
+
+            Console.WriteLine("Drücken Sie eine Taste, um weiterzufahren.");
+            Console.ReadKey();
+            
+            Console.Clear();
+            
+            int anzBenotungen = anzFirmen * anzKriterien;
+            int[] benotung = new int[anzBenotungen];
+
+            for (int f = 0; f < firmen.Length; f++)
+            {
+                for (int j = 0; j < kriterien.Length; j++)
+                {
+                    Console.WriteLine("Geben Sie {0} für das Kriterium {1} eine Benotung von 1 bis 10: ", firmen[f], kriterien[j]);
+                    benotung[f] = Convert.ToInt32(Console.ReadLine());
+                }
+            }
+
+
+            for (int zähler = 0;zähler < gewichtung.Length; zähler++)
+            { 
+                Console.Write(gewichtung[zähler] * benotung[zähler] + " ");
+            }
+        }
+    }
+}
