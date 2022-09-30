@@ -4,24 +4,49 @@ namespace Nutzwertanalyse
     {
         static void Main(string[] args)
         {
+            int check = -1;
+            int anzFirmen = 0;
             int i = 0;
             int x = 0;
             int y = 0;
 
             Console.WriteLine("Willkommen zur Nutzwertanalyse.");
-
+        Start1:
             Console.WriteLine("Wie viele Firmen wollen Sie haben? ");
-            int anzFirmen = Convert.ToInt32(Console.ReadLine());
+            string anzFirmenstr = Console.ReadLine();
+            if (!int.TryParse(anzFirmenstr, out check))
+            {
+                Console.WriteLine("Bitte geben sie eine Zahl ein.");
+                Thread.Sleep(500);
+                Console.Clear();
+                goto Start1;
+            }
+            else
+            {
+                anzFirmen = Convert.ToInt32(anzFirmenstr);
+            }
+
+
+        Start2:
             string[] firmen = new string[anzFirmen];
             for (; y < anzFirmen; y++)
             {
                 Console.WriteLine("Geben Sie ein Firmenname ein: ");
                 firmen[y] = Console.ReadLine();
+                if (int.TryParse(firmen[y], out check))
+                {
+                    Console.WriteLine("Ungültige Eingabe");
+                    Thread.Sleep(500);
+                    Console.Clear();
+                    goto Start2;
+                }
+
             }
-            
+
             Thread.Sleep(500);
             Console.Clear();
 
+        Start3:
             Console.WriteLine("Wie viele Kriterien wollen Sie haben? ");
             int anzKriterien = Convert.ToInt32(Console.ReadLine());
             string[] kriterien = new string[anzKriterien];
@@ -29,16 +54,31 @@ namespace Nutzwertanalyse
             {
                 Console.WriteLine("Geben Sie ein Kriterium ein: ");
                 kriterien[i] = Console.ReadLine();
+                if (int.TryParse(kriterien[i], out check))
+                {
+                    Console.WriteLine("Ungültige Eingabe.");
+                    Thread.Sleep(500);
+                    Console.Clear();
+                    goto Start3;
+                }
             }
 
             Thread.Sleep(500);
             Console.Clear();
 
+        Start4:
             int[] gewichtung = new int[anzKriterien];
             for (; x < anzKriterien; x++)
             {
-                Console.WriteLine("Geben Sie die Gewichtung für {0} ein: ", kriterien[x]);
+                Console.WriteLine("Geben Sie dem Kriterium {0} eine Gewichtung von 1 bis 6: ", kriterien[x]);
                 gewichtung[x] = Convert.ToInt32(Console.ReadLine());
+                if (gewichtung[x] < 1 || gewichtung[x] > 6)
+                {
+                    Console.WriteLine("Ungültige Eingabe");
+                    Thread.Sleep(500);
+                    Console.Clear();
+                    goto Start4;
+                }
             }
 
             Thread.Sleep(500);
@@ -56,9 +96,10 @@ namespace Nutzwertanalyse
 
             Console.WriteLine("Drücken Sie eine Taste, um weiterzufahren.");
             Console.ReadKey();
-            
+
             Console.Clear();
-            
+        Start5:
+
             int anzBenotungen = anzFirmen * anzKriterien;
             int[] benotung = new int[anzBenotungen];
 
@@ -68,12 +109,17 @@ namespace Nutzwertanalyse
                 {
                     Console.WriteLine("Geben Sie {0} für das Kriterium {1} eine Benotung von 1 bis 10: ", firmen[f], kriterien[j]);
                     benotung[f] = Convert.ToInt32(Console.ReadLine());
+                    if (benotung[f] > 10 || benotung[f] < 1)
+                    {
+                        Console.WriteLine("Ungültige Eingabe");
+                        goto Start5;
+                    }
                 }
             }
 
 
-            for (int zähler = 0;zähler < gewichtung.Length; zähler++)
-            { 
+            for (int zähler = 0; zähler < gewichtung.Length; zähler++)
+            {
                 Console.Write(gewichtung[zähler] * benotung[zähler] + " ");
             }
         }
