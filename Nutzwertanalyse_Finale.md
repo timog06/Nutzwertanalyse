@@ -1,3 +1,4 @@
+´´´c#
 namespace Nutzwertanalyse
 {
     internal class Program
@@ -102,6 +103,7 @@ namespace Nutzwertanalyse
                 Console.WriteLine("Ihre Totale Gewichtung liegt über 100.");
                 Console.WriteLine("Gewichten Sie Ihre Kriterien nocheinmal");
                 Thread.Sleep(3000);
+                x = 0;
                 goto Start4;
             }
 
@@ -153,3 +155,4 @@ namespace Nutzwertanalyse
         }
     }
 }
+´´´
