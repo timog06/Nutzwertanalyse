@@ -80,7 +80,6 @@ namespace Nutzwertanalyse
 
         Start4:
             int[] gewichtung = new int[anzKriterien];
-
             Console.WriteLine("Geben Sie Ihren Kriterien eine Gewichtung von Insgesamt 100.");
             for (; x < anzKriterien; x++)
             {
@@ -93,6 +92,16 @@ namespace Nutzwertanalyse
                     Console.Clear();
                     goto Start4;
                 }
+            }
+            int sum = gewichtung.Sum();
+            if (sum > 100)
+            {
+                Console.WriteLine("Ihre Totale Gewichtung liegt bei {0}.", sum);
+                Thread.Sleep(1500);
+                Console.WriteLine("Ihre Totale Gewichtung liegt über 100.");
+                Console.WriteLine("Gewichten Sie Ihre Kriterien nocheinmal");
+                Thread.Sleep(3000);
+                goto Start4;
             }
 
             Thread.Sleep(500);
