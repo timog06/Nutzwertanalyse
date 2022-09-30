@@ -7,6 +7,7 @@ namespace Nutzwertanalyse
             int check = -1;
             int anzFirmen = 0;
             int anzKriterien = 0;
+            int[] end = new int[anzFirmen];
             int i = 0;
             int x = 0;
             int y = 0;
@@ -94,9 +95,9 @@ namespace Nutzwertanalyse
                 }
             }
             int sum = gewichtung.Sum();
+
             if (sum > 100)
             {
-                Console.WriteLine("Ihre Totale Gewichtung liegt bei {0}.", sum);
                 Thread.Sleep(1500);
                 Console.WriteLine("Ihre Totale Gewichtung liegt über 100.");
                 Console.WriteLine("Gewichten Sie Ihre Kriterien nocheinmal");
@@ -116,6 +117,7 @@ namespace Nutzwertanalyse
 
             Console.WriteLine("Dies sind die Gewichtungen zu den Kriterien: ");
             Array.ForEach(gewichtung, Console.WriteLine);
+            Console.WriteLine("Ihre Totale Gewichtung liegt bei {0}.", sum);
 
             Console.WriteLine("Drücken Sie eine Taste, um weiterzufahren.");
             Console.ReadKey();
@@ -142,8 +144,12 @@ namespace Nutzwertanalyse
 
             for (int zähler = 0; zähler < gewichtung.Length; zähler++)
             {
-                Console.Write(gewichtung[zähler] * benotung[zähler] + " ");
+                end[zähler] = gewichtung[zähler] * benotung[zähler];
             }
+
+            int maxValue = end.Max();
+            Array.ForEach(end, Console.WriteLine);
+            Console.WriteLine("Ihr höchster Totaler Nutzwert ist {0}", maxValue);
         }
     }
 }
