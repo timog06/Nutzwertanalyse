@@ -8,7 +8,6 @@ namespace Nutzwertanalyse_LISTE
 
             int x = 0;
             int krit = 0;
-            int not = -1;
             int k = 0;
             int n = 0;
             int zahlkrit = 1;
@@ -81,11 +80,9 @@ namespace Nutzwertanalyse_LISTE
             Console.WriteLine("Eingegebenen Firmen");
             Firma.ForEach(Console.WriteLine);
 
-            Console.WriteLine("");
-            Console.WriteLine("Press any Key to continue");
             Console.ReadKey();
 
-            Thread.Sleep(300);
+            Thread.Sleep(500);
             Console.Clear();
 
             n = 0;
@@ -94,7 +91,7 @@ namespace Nutzwertanalyse_LISTE
 
                 do
                 {
-                    Console.WriteLine("Geben Sie nun die Anzahl Kriterien ein ");
+                    Console.WriteLine("Geben Sie nun die Anzahl Kritreien ein ");
                     check = true;
                     try
                     {
@@ -171,11 +168,9 @@ namespace Nutzwertanalyse_LISTE
             Console.WriteLine("----------------------------");
             Kriterien.ForEach(Console.WriteLine);
 
-            Console.WriteLine("");
-            Console.WriteLine("Press any Key to continue");
             Console.ReadKey();
 
-            Thread.Sleep(300);
+            Thread.Sleep(500);
             Console.Clear();
 
 
@@ -200,10 +195,10 @@ namespace Nutzwertanalyse_LISTE
                     check = true;
                     try
                     {
-                        
+
                         Bewertung[krit] = Convert.ToInt32(Console.ReadLine());
                         hundert -= Bewertung[krit];
-  
+
 
                         if (hundert < 0 || hundert > 100)
                         {
@@ -223,31 +218,38 @@ namespace Nutzwertanalyse_LISTE
             }
             Console.WriteLine("-----------------------");
             Array.ForEach(Bewertung, Console.WriteLine);
+
             n = 0;
-
-
+            int not = -1;
+            int notZahl = 0;
 
             for (; n < Bewertung.Length; n++)
             {
-                check = true;
                 do
                 {
-
-
+                    check = true;
                     not++;
                     Console.WriteLine("Gebe nun die Note für " + Kriterien[not] + " (1-6)");
                     try
                     {
-                        Note.Add(Convert.ToInt32(Console.ReadLine()));
-                        if (Note[not] > 6 || Note[not] < 1)
+                        notZahl = (Convert.ToInt32(Console.ReadLine()));
+                        if (notZahl >= 1 && notZahl <= 6)
                         {
-                            throw new Exception();
+                            Note.Add(notZahl);
+                        }
+                        else
+                        {
+                            Console.WriteLine("Ungültige Eingabe");
+                            Thread.Sleep(800);
+                            not--;
+                            check = false;
                         }
                     }
                     catch
                     {
                         Console.WriteLine("Ungültige Eingabe");
                         Thread.Sleep(800);
+                        not--;
                         check = false;
                     }
                 } while (check == false);
@@ -260,9 +262,9 @@ namespace Nutzwertanalyse_LISTE
             Console.WriteLine("-----------------------");
             Note.ForEach(Console.WriteLine);
 
-            int me = 0;
             int ne = 0;
             krit = 0;
+            int me = 0;
 
             int kl = 0;
             int sv = 0;
@@ -282,16 +284,12 @@ namespace Nutzwertanalyse_LISTE
 
 
                 Ergebnis.Add(Note[ne] * Bewertung[me]);
-
-
-                ArryErg++;
-
-                me++;
                 ne++;
+                me++;
                 kl++;
-                sv++;
 
             }
+            Console.Clear();
             n = 0;
             anzahl = new int[kl];
 
@@ -299,12 +297,7 @@ namespace Nutzwertanalyse_LISTE
             Console.WriteLine("-----------------------");
             Ergebnis.ForEach(Console.WriteLine);
 
-            int zählzahl = 0;
-            for (; n < anzahl.Length; n++)
-            {
-                EndRound = (Math.Max(Ergebnis[zählzahl], 0));
-                zählzahl++;
-            }
+            EndRound = Ergebnis.Max();
 
             Console.WriteLine("Die beste Firma ist: " + EndRound);
 
