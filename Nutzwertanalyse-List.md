@@ -94,7 +94,7 @@ namespace Nutzwertanalyse_LISTE
 
                 do
                 {
-                    Console.WriteLine("Geben Sie nun die Anzahl Kritreien ein ");
+                    Console.WriteLine("Geben Sie nun die Anzahl Kriterien ein ");
                     check = true;
                     try
                     {
