@@ -7,11 +7,9 @@ namespace Nutzwertanalyse_LISTE
         {
 
             int x = 0;
-            int p = 0;
             int krit = 0;
             int not = -1;
             int k = 0;
-            int ze = 0;
             int n = 0;
             int zahlkrit = 1;
             bool check = true;
@@ -180,34 +178,30 @@ namespace Nutzwertanalyse_LISTE
             Console.WriteLine("Gib die Bewertung der " + k + " Kriterien ein");
 
             int[] Bewertung = new int[k];
-            bool gemacht = false;
-            int zahlfürber = 0;
             int hundert = 100;
 
-            int FürBewertung = hundert - Bewertung[krit];
 
-
-
-            krit = 0;
+            krit = -1;
             n = 0;
+
 
             for (; n < Bewertung.Length; n++)
             {
 
                 do
                 {
+                    krit++;
                     Console.WriteLine("Bewertung zur " + Kriterien[krit]);
-                    Console.WriteLine("(Max 100) Momentan übrig: {0} ", FürBewertung);
+                    Console.WriteLine("(Max 100) Momentan übrig: {0} ", hundert);
                     check = true;
                     try
                     {
+                        
                         Bewertung[krit] = Convert.ToInt32(Console.ReadLine());
-                        FürBewertung = hundert -= Bewertung[krit];
-                        krit++;
+                        hundert -= Bewertung[krit];
+  
 
-
-
-                        if (FürBewertung < 0 || FürBewertung > 100)
+                        if (hundert < 0 || hundert > 100)
                         {
                             throw new Exception();
                         }
@@ -216,8 +210,8 @@ namespace Nutzwertanalyse_LISTE
                     {
                         Console.WriteLine("Ungültige Eingabe");
                         Thread.Sleep(800);
+                        hundert += Bewertung[krit];
                         krit--;
-                        FürBewertung += Bewertung[krit];
                         check = false;
                     }
                 } while (check == false);
