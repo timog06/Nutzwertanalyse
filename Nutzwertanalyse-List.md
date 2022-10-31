@@ -303,7 +303,25 @@ namespace Nutzwertanalyse_LISTE
 
             Console.WriteLine("Die beste Firma ist: " + EndRound);
 
-
+            try
+            {
+                Console.WriteLine("Geben Sie den Dateipfad und den Dateiname ein:");
+                Console.WriteLine("Bsp. C:/Users/timog/OneDrive/Dokumente/Nutzwertanalyse.txt");
+                StreamWriter sw = new StreamWriter(Console.ReadLine(), true, Encoding.Unicode);
+            Console.WriteLine("Die beste Firma ist: " + EndRound);
+                Ergebnis.ForEach(sw.WriteLine);
+                sw.WriteLine("Die meist geignete Firma ist: {0}", EndRoundMax);
+                sw.WriteLine("Die wenigst geignete Firma ist: {0}", EndRoundMin);
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Executing finally block.");
+            }
 
         }
     }
