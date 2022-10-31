@@ -81,9 +81,11 @@ namespace Nutzwertanalyse_LISTE
             Console.WriteLine("Eingegebenen Firmen");
             Firma.ForEach(Console.WriteLine);
 
+            Console.WriteLine("");
+            Console.WriteLine("Press any Key to continue");
             Console.ReadKey();
 
-            Thread.Sleep(500);
+            Thread.Sleep(300);
             Console.Clear();
 
             n = 0;
@@ -169,9 +171,11 @@ namespace Nutzwertanalyse_LISTE
             Console.WriteLine("----------------------------");
             Kriterien.ForEach(Console.WriteLine);
 
+            Console.WriteLine("");
+            Console.WriteLine("Press any Key to continue");
             Console.ReadKey();
 
-            Thread.Sleep(500);
+            Thread.Sleep(300);
             Console.Clear();
 
 
