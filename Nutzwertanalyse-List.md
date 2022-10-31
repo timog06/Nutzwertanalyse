@@ -1,4 +1,7 @@
 ```c#
+using System.IO;
+using System.Text;
+
 namespace Nutzwertanalyse_LISTE
 {
     internal class Program
@@ -80,9 +83,11 @@ namespace Nutzwertanalyse_LISTE
             Console.WriteLine("Eingegebenen Firmen");
             Firma.ForEach(Console.WriteLine);
 
+            Console.WriteLine("");
+            Console.WriteLine("Drücken Sie eine Taste um weiterzufahren");
             Console.ReadKey();
 
-            Thread.Sleep(500);
+            Thread.Sleep(300);
             Console.Clear();
 
             n = 0;
@@ -168,9 +173,11 @@ namespace Nutzwertanalyse_LISTE
             Console.WriteLine("----------------------------");
             Kriterien.ForEach(Console.WriteLine);
 
+            Console.WriteLine("");
+            Console.WriteLine("Drücken Sie eine Taste um weiterzufahren");
             Console.ReadKey();
 
-            Thread.Sleep(500);
+            Thread.Sleep(300);
             Console.Clear();
 
 
@@ -265,12 +272,9 @@ namespace Nutzwertanalyse_LISTE
             int ne = 0;
             krit = 0;
             int me = 0;
-
             int kl = 0;
-            int sv = 0;
-
-            int ArryErg = 0;
-            double EndRound = 0;
+            double EndRoundMax = 0;
+            double EndRoundMin = 0;
             int[] anzahl = new int[0];
 
 
@@ -297,11 +301,34 @@ namespace Nutzwertanalyse_LISTE
             Console.WriteLine("-----------------------");
             Ergebnis.ForEach(Console.WriteLine);
 
-            EndRound = Ergebnis.Max();
+            EndRoundMax = Ergebnis.Max();
+            EndRoundMin = Ergebnis.Min();
 
-            Console.WriteLine("Die beste Firma ist: " + EndRound);
+            Console.WriteLine("Die beste Firma ist: " + EndRoundMax);
 
+            try
+            {
+                Console.WriteLine("Geben Sie den Dateipfad und den Dateiname ein:");
+                Console.WriteLine("Bsp. C:/Users/timog/OneDrive/Dokumente/Nutzwertanalyse.txt");
 
+                StreamWriter sw = new StreamWriter(Console.ReadLine(), true, Encoding.Unicode);
+
+                Ergebnis.ForEach(sw.WriteLine);
+
+                sw.WriteLine("Die meist geignete Firma ist: {0}", EndRoundMax);
+
+                sw.WriteLine("Die wenigst geignete Firma ist: {0}", EndRoundMin);
+
+                sw.Close();
+            }
+            catch (Exception e)
+            {
+                Console.WriteLine("Exception: " + e.Message);
+            }
+            finally
+            {
+                Console.WriteLine("Executing finally block.");
+            }
 
         }
     }
