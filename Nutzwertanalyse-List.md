@@ -1,7 +1,7 @@
 ```c#
 using System.Text;
 
-namespace Nutzwertanalyse_LISTE
+namespace Nutzwertanalyse
 {
     internal class Program
     {
@@ -27,7 +27,7 @@ namespace Nutzwertanalyse_LISTE
             int[] AnzKrit = new int[0];
             int[] AnzFir = new int[y];
 
-            List<string> listFirma = FirmaInList(check, y, AnzFir, x, weiter, n);
+            List<string> listFirma = FirmList(check, y, AnzFir, x, weiter, n);
 
 
 
@@ -43,7 +43,7 @@ namespace Nutzwertanalyse_LISTE
             bool check2 = true;
             n = 0;
 
-            List<string> listKriterien = KriterienListe(check, k, AnzKrit, n, zahlkrit, check2, weiter2);
+            List<string> listKriterien = KritList(check, k, AnzKrit, n, zahlkrit, check2, weiter2);
 
 
             Console.WriteLine("Die Kriterien zu den Firmen");
@@ -189,15 +189,47 @@ namespace Nutzwertanalyse_LISTE
 
             try
             {
-                Console.WriteLine("Geben Sie den Dateipfad und den Dateiname ein:");
-                Console.WriteLine("Bsp. C:/Users/timog/OneDrive/Dokumente/Nutzwertanalyse.txt");
-                StreamWriter sw = new StreamWriter(Console.ReadLine(), true, Encoding.Unicode);
-                Console.WriteLine("Die beste Firma ist: " + EndRoundMax);
-                Console.WriteLine("Die schlechteste Firma ist: " + EndRoundMin);
-                Ergebnis.ForEach(sw.WriteLine);
-                sw.WriteLine("Die meist geignete Firma ist: {0}", EndRoundMax);
-                sw.WriteLine("Die wenigst geignete Firma ist: {0}", EndRoundMin);
-                sw.Close();
+                bool hm = false;
+                do
+                {
+
+                    Console.WriteLine("Geben Sie den Dateipfad und den Dateiname ein:");
+                    Console.WriteLine("Bsp. C:/Users/timog/OneDrive/Dokumente/Nutzwertanalyse.txt");
+                    StreamWriter sw = new StreamWriter(Console.ReadLine(), false, Encoding.Unicode);
+                    Thread.Sleep(300);
+                    Console.WriteLine("Sind Sie sicher das {0} Ihr Dateipfad ist? [ja/nein]");
+                    string eingabe = Console.ReadLine();
+                    if (eingabe != "ja" && eingabe != "nein")
+                    {
+                        Console.WriteLine("Bitte geben sie [ja] oder [nein] ein. ");
+                        Thread.Sleep(500);
+                        hm = false;
+
+                    }
+                    else if (eingabe == "nein")
+                    {
+                        hm = false;
+                    }
+                    else if (eingabe == "ja")
+                    {
+                        hm = true;
+                    }
+                    else if (eingabe == "[ja]" || eingabe == "[nein]")
+                    {
+                        hm = true;
+                    }
+
+
+                    Console.WriteLine("Die beste Firma ist: " + EndRoundMax);
+                    Console.WriteLine("Die schlechteste Firma ist: " + EndRoundMin);
+                    Ergebnis.ForEach(sw.WriteLine);
+                    sw.WriteLine("Die meist geignete Firma ist: {0}", EndRoundMax);
+                    sw.WriteLine("Die wenigst geignete Firma ist: {0}", EndRoundMin);
+                    sw.Close();
+
+                } while (hm == false);
+
+
             }
             catch (Exception e)
             {
@@ -205,69 +237,10 @@ namespace Nutzwertanalyse_LISTE
             }
             finally
             {
-                Console.WriteLine("Executing finally block.");
+                Console.WriteLine("Datei wurde erfolgreich gespeichert.");
             }
         }
-        static List<string> FirmaInList(bool check, int y, int[] AnzFir, int x, string weiter, int n)
-        {
-            List<string> Firma = new List<string>();
-            do
-            {
-                do
-                {
-                    check = true;
-                    try
-                    {
-                        Console.WriteLine("Nutzwertanalyse");
-                        Console.WriteLine("Wie viele Firmen wollen Sie Eingeben?");
-                        y = Convert.ToInt32(Console.ReadLine());
-                        AnzFir = new int[y];
-
-                        for (; n < AnzFir.Length; n++)
-                        {
-                            Console.WriteLine("Gebe Firma ein: ");
-                            Firma.Add(Console.ReadLine());
-                            x++;
-                        }
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Ungültige Eingabe");
-                        Thread.Sleep(800);
-                        check = false;
-
-                    }
-                } while (check == false);
-
-                try
-                {
-                    do
-                    {
-                        check = true;
-                        Console.WriteLine("Noch eine Firma? [y|n]");
-                        weiter = Console.ReadLine();
-                        if (weiter != "y" && weiter != "n")
-                        {
-                            Console.WriteLine("Ungültige Eingabe");
-                            Thread.Sleep(800);
-                            check = false;
-                        }
-                    } while (check == false);
-                }
-                catch
-                {
-                    Console.WriteLine("Ungültige Eingabe");
-                    Thread.Sleep(800);
-                    check = false;
-                }
-
-            } while (weiter == "y" || check == false);
-            Console.WriteLine("Anzahl Firmen: {0}", x);
-
-            return Firma;
-        }
-
-        static List<string> KriterienListe(bool check, int k, int[] AnzKrit, int n, int zahlkrit, bool check2, string weiter2)
+        static List<string> KritList(bool check, int k, int[] AnzKrit, int n, int zahlkrit, bool check2, string weiter2)
         {
             List<string> Kriterien = new List<string>();
 
@@ -349,7 +322,64 @@ namespace Nutzwertanalyse_LISTE
             return Kriterien;
 
         }
-    }
+        static List<string> FirmList(bool check, int y, int[] AnzFir, int x, string weiter, int n)
+        {
+            List<string> Firma = new List<string>();
+            do
+            {
+                do
+                {
+                    check = true;
+                    try
+                    {
+                        Console.WriteLine("Nutzwertanalyse");
+                        Console.WriteLine("Wie viele Firmen wollen Sie Eingeben?");
+                        y = Convert.ToInt32(Console.ReadLine());
+                        AnzFir = new int[y];
 
+                        for (; n < AnzFir.Length; n++)
+                        {
+                            Console.WriteLine("Gebe Firma ein: ");
+                            Firma.Add(Console.ReadLine());
+                            x++;
+                        }
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Ungültige Eingabe");
+                        Thread.Sleep(800);
+                        check = false;
+
+                    }
+                } while (check == false);
+
+                try
+                {
+                    do
+                    {
+                        check = true;
+                        Console.WriteLine("Noch eine Firma? [y|n]");
+                        weiter = Console.ReadLine();
+                        if (weiter != "y" && weiter != "n")
+                        {
+                            Console.WriteLine("Ungültige Eingabe");
+                            Thread.Sleep(800);
+                            check = false;
+                        }
+                    } while (check == false);
+                }
+                catch
+                {
+                    Console.WriteLine("Ungültige Eingabe");
+                    Thread.Sleep(800);
+                    check = false;
+                }
+
+            } while (weiter == "y" || check == false);
+            Console.WriteLine("Anzahl Firmen: {0}", x);
+
+            return Firma;
+        }
+    }
 }
 ```
