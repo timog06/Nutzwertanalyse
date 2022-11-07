@@ -1,4 +1,6 @@
 ```c#
+using System.Text;
+
 namespace Nutzwertanalyse_LISTE
 {
     internal class Program
@@ -10,6 +12,7 @@ namespace Nutzwertanalyse_LISTE
             int krit = 0;
             int k = 0;
             int n = 0;
+            int y = 0;
             int zahlkrit = 1;
             bool check = true;
 
@@ -17,162 +20,42 @@ namespace Nutzwertanalyse_LISTE
             string weiter = "";
             string weiter2 = "";
 
-            List<string> Firma = new List<string>();
-            List<string> Kriterien = new List<string>();
+
+
             List<int> Note = new List<int>();
 
             int[] AnzKrit = new int[0];
+            int[] AnzFir = new int[y];
 
-            do
-            {
-                do
-                {
-                    check = true;
-                    try
-                    {
-                        Console.WriteLine("Nutzwertanalyse");
-                        Console.WriteLine("Wie viele Firmen wollen Sie Eingeben?");
-                        int y = Convert.ToInt32(Console.ReadLine());
-                        int[] AnzFir = new int[y];
+            List<string> listFirma = FirmaInList(check, y, AnzFir, x, weiter, n);
 
-                        for (; n < AnzFir.Length; n++)
-                        {
-                            Console.WriteLine("Gebe Firma ein: ");
-                            Firma.Add(Console.ReadLine());
-                            x++;
-                        }
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Ungültige Eingabe");
-                        Thread.Sleep(800);
-                        check = false;
 
-                    }
-                } while (check == false);
 
-                try
-                {
-                    do
-                    {
-                        check = true;
-                        Console.WriteLine("Noch eine Firma? [y|n]");
-                        weiter = Console.ReadLine();
-                        if (weiter != "y" && weiter != "n")
-                        {
-                            Console.WriteLine("Ungültige Eingabe");
-                            Thread.Sleep(800);
-                            check = false;
-                        }
-                    } while (check == false);
-                }
-                catch
-                {
-                    Console.WriteLine("Ungültige Eingabe");
-                    Thread.Sleep(800);
-                    check = false;
-                }
-
-            } while (weiter == "y" || check == false);
-
-            Console.WriteLine("Anzahl Firmen: {0}", x);
             Console.WriteLine("-----------------------");
             Console.WriteLine("Eingegebenen Firmen");
-            Firma.ForEach(Console.WriteLine);
+            listFirma.ForEach(Console.WriteLine);
 
             Console.ReadKey();
 
             Thread.Sleep(500);
             Console.Clear();
 
+            bool check2 = true;
             n = 0;
-            do
-            {
 
-                do
-                {
-                    Console.WriteLine("Geben Sie nun die Anzahl Kritreien ein ");
-                    check = true;
-                    try
-                    {
-                        k = Convert.ToInt32(Console.ReadLine());
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Ungültige Eingabe");
-                        Thread.Sleep(800);
-                        check = false;
-                    }
-                } while (check == false);
-                AnzKrit = new int[k];
+            List<string> listKriterien = KriterienListe(check, k, AnzKrit, n, zahlkrit, check2, weiter2);
 
-                bool check2 = true;
-                for (; n < AnzKrit.Length; n++)
-                {
-                    do
-                    {
-                        check = true;
-
-                        try
-                        {
-                            Console.WriteLine("Kriterium: {0}", zahlkrit);
-                            Kriterien.Add(Console.ReadLine());
-                            zahlkrit++;
-
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Ungültige Eingabe");
-                            Thread.Sleep(800);
-                            check2 = false;
-                        }
-                    } while (check2 == false);
-                }
-
-
-
-
-                do
-                {
-                    check2 = true;
-                    do
-                    {
-                        check = true;
-                        try
-                        {
-                            Console.WriteLine("Möchten Sie noch Kriterien Eingeben? [y|n]");
-                            weiter2 = Console.ReadLine();
-                        }
-                        catch
-                        {
-                            Console.WriteLine("Ungültige Eingabe");
-                            check2 = false;
-                        }
-                    } while (check2 == false);
-
-                    check2 = true;
-
-                    if (weiter2 != "y" && weiter2 != "n")
-                    {
-                        Console.WriteLine("Ungültige Eingabe");
-                        Thread.Sleep(500);
-                        Console.Clear();
-                        check2 = false;
-
-                    }
-                } while (check2 == false);
-
-            } while (weiter2 == "y");
 
             Console.WriteLine("Die Kriterien zu den Firmen");
             Console.WriteLine("----------------------------");
-            Kriterien.ForEach(Console.WriteLine);
+            listKriterien.ForEach(Console.WriteLine);
 
             Console.ReadKey();
 
             Thread.Sleep(500);
             Console.Clear();
 
+            k = listKriterien.Count;
 
             Console.WriteLine("Gib die Bewertung der " + k + " Kriterien ein");
 
@@ -190,7 +73,7 @@ namespace Nutzwertanalyse_LISTE
                 do
                 {
                     krit++;
-                    Console.WriteLine("Bewertung zur " + Kriterien[krit]);
+                    Console.WriteLine("Bewertung zur " + listKriterien[krit]);
                     Console.WriteLine("(Max 100) Momentan übrig: {0} ", hundert);
                     check = true;
                     try
@@ -229,7 +112,7 @@ namespace Nutzwertanalyse_LISTE
                 {
                     check = true;
                     not++;
-                    Console.WriteLine("Gebe nun die Note für " + Kriterien[not] + " (1-6)");
+                    Console.WriteLine("Gebe nun die Note für " + listKriterien[not] + " (1-6)");
                     try
                     {
                         notZahl = (Convert.ToInt32(Console.ReadLine()));
@@ -270,7 +153,8 @@ namespace Nutzwertanalyse_LISTE
             int sv = 0;
 
             int ArryErg = 0;
-            double EndRound = 0;
+            double EndRoundMax = 0;
+            double EndRoundMin = 0;
             int[] anzahl = new int[0];
 
 
@@ -293,22 +177,23 @@ namespace Nutzwertanalyse_LISTE
             n = 0;
             anzahl = new int[kl];
 
-            
+
 
             Console.WriteLine("Gerechnete Firmen");
             Console.WriteLine("-----------------------");
             Ergebnis.ForEach(Console.WriteLine);
 
-            EndRound = Ergebnis.Max();
-
-            Console.WriteLine("Die beste Firma ist: " + EndRound);
+            EndRoundMax = Ergebnis.Max();
+            EndRoundMin = Ergebnis.Min();
+            Console.WriteLine("Die beste Firma ist: " + EndRoundMax);
 
             try
             {
                 Console.WriteLine("Geben Sie den Dateipfad und den Dateiname ein:");
                 Console.WriteLine("Bsp. C:/Users/timog/OneDrive/Dokumente/Nutzwertanalyse.txt");
                 StreamWriter sw = new StreamWriter(Console.ReadLine(), true, Encoding.Unicode);
-            Console.WriteLine("Die beste Firma ist: " + EndRound);
+                Console.WriteLine("Die beste Firma ist: " + EndRoundMax);
+                Console.WriteLine("Die schlechteste Firma ist: " + EndRoundMin);
                 Ergebnis.ForEach(sw.WriteLine);
                 sw.WriteLine("Die meist geignete Firma ist: {0}", EndRoundMax);
                 sw.WriteLine("Die wenigst geignete Firma ist: {0}", EndRoundMin);
@@ -322,8 +207,149 @@ namespace Nutzwertanalyse_LISTE
             {
                 Console.WriteLine("Executing finally block.");
             }
+        }
+        static List<string> FirmaInList(bool check, int y, int[] AnzFir, int x, string weiter, int n)
+        {
+            List<string> Firma = new List<string>();
+            do
+            {
+                do
+                {
+                    check = true;
+                    try
+                    {
+                        Console.WriteLine("Nutzwertanalyse");
+                        Console.WriteLine("Wie viele Firmen wollen Sie Eingeben?");
+                        y = Convert.ToInt32(Console.ReadLine());
+                        AnzFir = new int[y];
+
+                        for (; n < AnzFir.Length; n++)
+                        {
+                            Console.WriteLine("Gebe Firma ein: ");
+                            Firma.Add(Console.ReadLine());
+                            x++;
+                        }
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Ungültige Eingabe");
+                        Thread.Sleep(800);
+                        check = false;
+
+                    }
+                } while (check == false);
+
+                try
+                {
+                    do
+                    {
+                        check = true;
+                        Console.WriteLine("Noch eine Firma? [y|n]");
+                        weiter = Console.ReadLine();
+                        if (weiter != "y" && weiter != "n")
+                        {
+                            Console.WriteLine("Ungültige Eingabe");
+                            Thread.Sleep(800);
+                            check = false;
+                        }
+                    } while (check == false);
+                }
+                catch
+                {
+                    Console.WriteLine("Ungültige Eingabe");
+                    Thread.Sleep(800);
+                    check = false;
+                }
+
+            } while (weiter == "y" || check == false);
+            Console.WriteLine("Anzahl Firmen: {0}", x);
+
+            return Firma;
+        }
+
+        static List<string> KriterienListe(bool check, int k, int[] AnzKrit, int n, int zahlkrit, bool check2, string weiter2)
+        {
+            List<string> Kriterien = new List<string>();
+
+            do
+            {
+
+                do
+                {
+                    Console.WriteLine("Geben Sie nun die Anzahl Kritreien ein ");
+                    check = true;
+                    try
+                    {
+                        k = Convert.ToInt32(Console.ReadLine());
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Ungültige Eingabe");
+                        Thread.Sleep(800);
+                        check = false;
+                    }
+                } while (check == false);
+                AnzKrit = new int[k];
+
+
+                for (; n < AnzKrit.Length; n++)
+                {
+                    do
+                    {
+                        check = true;
+
+                        try
+                        {
+                            Console.WriteLine("Kriterium: {0}", zahlkrit);
+                            Kriterien.Add(Console.ReadLine());
+                            zahlkrit++;
+
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Ungültige Eingabe");
+                            Thread.Sleep(800);
+                            check2 = false;
+                        }
+                    } while (check2 == false);
+                }
+
+                do
+                {
+                    check2 = true;
+                    do
+                    {
+                        check = true;
+                        try
+                        {
+                            Console.WriteLine("Möchten Sie noch Kriterien Eingeben? [y|n]");
+                            weiter2 = Console.ReadLine();
+                        }
+                        catch
+                        {
+                            Console.WriteLine("Ungültige Eingabe");
+                            check2 = false;
+                        }
+                    } while (check2 == false);
+
+                    check2 = true;
+
+                    if (weiter2 != "y" && weiter2 != "n")
+                    {
+                        Console.WriteLine("Ungültige Eingabe");
+                        Thread.Sleep(500);
+                        Console.Clear();
+                        check2 = false;
+
+                    }
+                } while (check2 == false);
+
+            } while (weiter2 == "y");
+
+            return Kriterien;
 
         }
     }
+
 }
 ```
