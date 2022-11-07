@@ -35,9 +35,9 @@ namespace Nutzwertanalyse_LISTE
             Console.WriteLine("Eingegebenen Firmen");
             listFirma.ForEach(Console.WriteLine);
 
+            Console.WriteLine("Drücken Sie eine Taste um weiterzufahren...");
             Console.ReadKey();
-
-            Thread.Sleep(500);
+            Thread.Sleep(300);
             Console.Clear();
 
             bool check2 = true;
@@ -50,9 +50,9 @@ namespace Nutzwertanalyse_LISTE
             Console.WriteLine("----------------------------");
             listKriterien.ForEach(Console.WriteLine);
 
+            Console.WriteLine("Drücken Sie eine Taste um weiterzufahren...");
             Console.ReadKey();
-
-            Thread.Sleep(500);
+            Thread.Sleep(300);
             Console.Clear();
 
             k = listKriterien.Count;
