@@ -93,38 +93,47 @@ namespace Nutzwertanalyse
             n = 0;
             int not = -1;
             int notZahl = 0;
-
-            for (; n < Bewertung.Length; n++)
+            int hallo = listKriterien.Count * listFirma.Count;
+            List<List <int> > benotungMalKriterien = new List<List <int>>();
+            for (int i = 0; i < listFirma.Count; i++)
             {
-                do
+                Note = new();
+
+                for (n = 0; n < listKriterien.Count; n++)
                 {
-                    Console.Clear();
-                    check = true;
-                    not++;
-                    Console.WriteLine("Gebe nun die Note für " + listKriterien[not] + " (1-6)");
-                    try
+                    do
                     {
-                        notZahl = (Convert.ToInt32(Console.ReadLine()));
-                        if (notZahl >= 1 && notZahl <= 6)
+                        Console.Clear();
+                        check = true;
+                        not++;
+                        Console.WriteLine("Firma {0}", listFirma[i]);
+                        Console.WriteLine("Kriterium {0}", listKriterien[n]);
+                        Console.WriteLine("Gebe nun die Note für " + " (1-6)");
+                        try
                         {
-                            Note.Add(notZahl);
+                            notZahl = (Convert.ToInt32(Console.ReadLine()));
+                            if (notZahl >= 1 && notZahl <= 6)
+                            {
+                                Note.Add(notZahl);
+                            }
+                            else
+                            {
+                                Console.WriteLine("Ungültige Eingabe");
+                                Thread.Sleep(800);
+                                not--;
+                                check = false;
+                            }
                         }
-                        else
+                        catch
                         {
                             Console.WriteLine("Ungültige Eingabe");
                             Thread.Sleep(800);
                             not--;
                             check = false;
                         }
-                    }
-                    catch
-                    {
-                        Console.WriteLine("Ungültige Eingabe");
-                        Thread.Sleep(800);
-                        not--;
-                        check = false;
-                    }
-                } while (check == false);
+                    } while (check == false);
+                }
+                benotungMalKriterien.Add(Note);
             }
 
             Console.WriteLine("-----------------------");
